@@ -91,7 +91,7 @@ def load_model():
     Load the Keras model using tf_keras (lightweight, Streamlit Cloud compatible).
     Returns (model, None) on success or (None, error_message) on failure.
     """
-    model_path = "best_frozen_model.keras"
+    model_path = "best_finetuned_model.keras"
 
     if not os.path.exists(model_path):
         return None, (
@@ -128,24 +128,12 @@ def load_model():
 #         x = x - 1.0
 #         return x
 
-#     image = image.convert("RGB")
-#     image = image.resize((224, 224), Image.LANCZOS)
-#     img_array = np.array(image, dtype=np.float32)
-#     img_array = np.expand_dims(img_array, axis=0)   # Add batch dimension
-#     img_array = efficientnet_preprocess(img_array)
-#     return img_array
 
 def preprocess_image(image: Image.Image) -> np.ndarray:
-    """
-    Apply MobileNetV2 preprocessing — exactly what was used during training.
-    Training used: from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
-    Formula: scales pixels from [0, 255] to [-1, +1]  →  (pixel / 127.5) - 1.0
-    """
     image = image.convert("RGB")
     image = image.resize((224, 224), Image.LANCZOS)
-    img_array = np.array(image, dtype=np.float32)   # raw pixels 0–255
-    img_array = (img_array / 127.5) - 1.0           # scale to [-1, +1]
-    img_array = np.expand_dims(img_array, axis=0)   # add batch dim → (1, 224, 224, 3)
+    img_array = np.array(image, dtype=np.float32)  # raw 0-255, EfficientNet handles the rest
+    img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
 def render_probability_bars(probabilities: np.ndarray):
