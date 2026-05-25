@@ -101,9 +101,14 @@ def load_model():
 
     try:
         # Use tf_keras — lighter than full TensorFlow, works on Streamlit Cloud
-        import tf_keras as keras
+        # import tf_keras as keras
+        # model = keras.models.load_model(model_path)
+        # return model, None
+        import keras
         model = keras.models.load_model(model_path)
         return model, None
+
+
     except Exception as e:
         return None, f"Failed to load model: {e}"
 
