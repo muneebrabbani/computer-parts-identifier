@@ -104,7 +104,11 @@ def load_model():
         # import tf_keras as keras
         # model = keras.models.load_model(model_path)
         # return model, None
-        import keras
+        # import keras
+        # model = keras.models.load_model(model_path)
+        # return model, None
+
+        from tensorflow import keras
         model = keras.models.load_model(model_path)
         return model, None
 
