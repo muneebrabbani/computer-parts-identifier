@@ -91,7 +91,7 @@ def load_model():
     Load the Keras model using tf_keras (lightweight, Streamlit Cloud compatible).
     Returns (model, None) on success or (None, error_message) on failure.
     """
-    model_path = "best_frozen_model.keras"
+    model_path = "best_finetuned_model.keras"
 
     if not os.path.exists(model_path):
         return None, (
